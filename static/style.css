@@ -1,0 +1,141 @@
+[draggable] {
+  user-select: none;
+}
+
+.grid {
+    height: min(62vw, 80vh);
+    width: min(60vw, 80vh);  
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10vh;
+    background-color: rgba(109, 127, 151, 0.5);
+    padding:0.5vmin;
+    border-radius: 1vmin;
+    box-shadow: 0vh 0.2vmin 0.4vmin rgba(0, 0, 0, 0.5) inset, 0 0.1vmin 0 #fff;
+    color: #85796b;
+}
+
+.grid div {
+    height: min(7vw, 10vh);
+    width: min(7vw, 10vh);
+}
+
+h3 {
+ font-family: "Montserrat", sans-serif;
+ text-transform: uppercase;
+}
+
+h1 {
+ font-family: "Montserrat", sans-serif;
+ text-transform: uppercase;
+ margin-top: -1vh;
+}
+
+.invisible {
+    background-color: white;
+}
+body {
+  background-image: url("background.png");
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
+  display: flex;
+}
+
+
+.score-boards-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-board {
+  background-color: pink;
+  border-radius: 1vh;
+  margin-top: min(23vw, 30vh);
+  margin-left: 5vw;
+  margin-right: 5vw;
+  width: 8vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(#FFB6C1, #FFC0CB);
+  box-shadow: 0 0.2vh 0.4vw rgba(0, 0, 0, 0.5) inset, 0 0.1vh 0 #fff;
+  color: #85796b;
+}
+
+.bar-container {
+  height: 20px;
+  width: 80px;
+  border: 1px solid black;
+  position: relative;
+}
+
+.bar {
+  height: 100%;
+  width: 0%;
+  background-color: green;
+  transition: width 0.5s;
+}
+
+.hidden {
+  display: none;
+}
+
+#btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: blue;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.btn {
+  font-size: 1.5vmin;
+  font-family: "Courier New";
+  position: absolute;
+  left: 50%; /* Will be centered horizontally */
+  margin-left: -10vw; /* Half of the width of the box */
+  background-color: #3498db;
+  color: white;
+  border-radius: 2vmin;
+  width: 20vw;
+  height: 5vh;
+  text-align: center; /* Centers text in the box */
+}
+
+.box {
+  font-size: 1.5vmin;
+  font-family: "Courier New";
+  position: absolute;
+  left: 50%; /* Will be centered horizontally */
+  margin-left: -20vw; /* Half of the width of the box */
+  background-color: #3498db;
+  color: white;
+  border-radius: 2vmin;
+  width: 40vw;
+  text-align: center; /* Centers text in the box */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box a {
+  color: blue;
+  text-decoration: underline;
+}
+
+.box .cv-link {
+  color: blue; /* change color to red */
+  text-decoration: none; /* remove underline */
+  font-weight: bold; /* make it bold */
+}
+
+
