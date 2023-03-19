@@ -35,11 +35,11 @@ showButton.addEventListener("click", () => {
   btn_contact.classList.remove("hidden");
 });
 const candyColors = [
-  'url(static/images/yellow_image.png)',
-  'url(static/images/red_image.png)',
+  'url(static/images/yellow_image4.png)',
+  'url(static/images/red_image3.png)',
     'url(static/images/black_image.png)',
-    'url(static/images/purple_image.png)',
-    'url(static/images/green_image.png)',
+    'url(static/images/purple_image2.png)',
+    'url(static/images/green_image1.png)',
     'url(static/images/blue_image.png)'
   ]
 
@@ -157,8 +157,10 @@ function moveIntoSquareBelow() {
 
       const notValid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55]
       if (notValid.includes(i)) continue
-
+      
       if(rowOfFour.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
+        console.log(decidedColor[decidedColor.length-7]);
+        
         switch (parseInt(decidedColor[decidedColor.length-7])) {
           case 1:
             score_journey += 4

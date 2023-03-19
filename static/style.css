@@ -21,16 +21,6 @@
     width: min(7vw, 10vh);
 }
 
-h3 {
- font-family: "Montserrat", sans-serif;
- text-transform: uppercase;
-}
-
-h1 {
- font-family: "Montserrat", sans-serif;
- text-transform: uppercase;
- margin-top: -1vh;
-}
 
 .invisible {
     background-color: white;
@@ -50,26 +40,24 @@ body {
 }
 
 .score-board {
-  background-color: pink;
   border-radius: 1vh;
   margin-top: min(23vw, 30vh);
-  margin-left: 5vw;
-  margin-right: 5vw;
-  width: 8vw;
+  margin-left: 2.5vw;
+  margin-right: 2.5vw;
+  width: 15vw;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  background-image: linear-gradient(#FFB6C1, #FFC0CB);
   box-shadow: 0 0.2vh 0.4vw rgba(0, 0, 0, 0.5) inset, 0 0.1vh 0 #fff;
-  color: #85796b;
+  color: black;
 }
 
 .bar-container {
-  height: 20px;
-  width: 80px;
+  height: 2vw;
+  width: 10vw;
   border: 1px solid black;
   position: relative;
 }
@@ -77,7 +65,7 @@ body {
 .bar {
   height: 100%;
   width: 0%;
-  background-color: green;
+  background-color: black;
   transition: width 0.5s;
 }
 
@@ -139,3 +127,14 @@ body {
 }
 
 
+.link-style {
+  color: rgb(0, 8, 125);
+  font-family: "Brush Script";
+  text-transform: uppercase;
+  font-size: 3vh;
+}
+
+h1, h2, h3 {
+  font-family: "Brush Script";
+  text-transform: uppercase;
+}
