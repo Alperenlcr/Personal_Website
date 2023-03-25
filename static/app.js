@@ -79,18 +79,22 @@ function createBoard() {
 }
 createBoard()
 
+let first_time = true
 // Dragging the Candy
 let colorBeingDragged
 let colorBeingReplaced
 let squareIdBeingDragged
 let squareIdBeingReplaced
-
 squares.forEach(square => square.addEventListener('dragstart', dragStart))
 squares.forEach(square => square.addEventListener('dragend', dragEnd))
 squares.forEach(square => square.addEventListener('dragover', dragOver))
 squares.forEach(square => square.addEventListener('dragenter', dragEnter))
 squares.forEach(square => square.addEventListener('drageleave', dragLeave))
 squares.forEach(square => square.addEventListener('drop', dragDrop))
+
+function any_change(){
+  return checkRowForFour(true) & checkColumnForFour(true) & checkRowForThree(true) & checkColumnForThree(true)
+}
 
 function dragStart(){
     colorBeingDragged = this.style.backgroundImage
@@ -122,6 +126,7 @@ function dragEnd() {
     let validMoves = [squareIdBeingDragged -1 , squareIdBeingDragged -width, squareIdBeingDragged +1, squareIdBeingDragged +width]
     let validMove = validMoves.includes(squareIdBeingReplaced)
 
+//    validMove = any_change()
     if (squareIdBeingReplaced && validMove) {
         squareIdBeingReplaced = null
     }  else if (squareIdBeingReplaced && !validMove) {
@@ -132,25 +137,25 @@ function dragEnd() {
 
 //drop candies once some have been cleared
 function moveIntoSquareBelow() {
-    for (i = 0; i < 55; i ++) {
-        if(squares[i + width].style.backgroundImage === '') {
+  for (i = 0; i < 8; i++) {
+    if (squares[i].style.backgroundImage === '') {
+      let randomColor = Math.floor(Math.random() * candyColors.length)
+      squares[i].style.backgroundImage = candyColors[randomColor]
+    }
+  }
+    for (i = 0; i < 56; i++) {
+        if(squares[i + width].style.backgroundImage == '') {
             squares[i + width].style.backgroundImage = squares[i].style.backgroundImage
             squares[i].style.backgroundImage = ''
-            const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
-            const isFirstRow = firstRow.includes(i)
-            if (isFirstRow && (squares[i].style.backgroundImage === '')) {
-              let randomColor = Math.floor(Math.random() * candyColors.length)
-              squares[i].style.backgroundImage = candyColors[randomColor]
-            }
+          }
         }
-    }
 }
 
 
 ///Checking for Matches
 //for row of Four
-  function checkRowForFour() {
-    for (i = 0; i < 60; i ++) {
+  function checkRowForFour(checking) {
+    for (i = 0; i < 61; i ++) {
       let rowOfFour = [i, i+1, i+2, i+3]
       let decidedColor = squares[i].style.backgroundImage
       const isBlank = squares[i].style.backgroundImage === ''
@@ -159,31 +164,35 @@ function moveIntoSquareBelow() {
       if (notValid.includes(i)) continue
       
       if(rowOfFour.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
-        console.log(decidedColor[decidedColor.length-7]);
-        
-        switch (parseInt(decidedColor[decidedColor.length-7])) {
-          case 1:
-            score_journey += 4
-            scoreDisplay_journey.innerHTML = score_journey
-            fillBar(score_journey, bar_journey, btn_journey);
-            break;
-          case 2:
-            score_projects += 4
-            scoreDisplay_projects.innerHTML = score_projects
-            fillBar(score_projects, bar_projects, btn_projects);
-            break;
-          case 3:
-            score_cv += 4
-            scoreDisplay_cv.innerHTML = score_cv
-            fillBar(score_cv, bar_cv, btn_cv);
-            break;
-          case 4:
-            score_contact += 4
-            scoreDisplay_contact.innerHTML = score_contact
-            fillBar(score_contact, bar_contact, btn_contact);
-            break;
-          default:
-            break;
+        if (checking) {
+          continue
+        }
+        if (!first_time)
+        {
+          switch (parseInt(decidedColor[decidedColor.length-7])) {
+            case 1:
+              score_journey += 4
+              scoreDisplay_journey.innerHTML = score_journey
+              fillBar(score_journey, bar_journey, btn_journey);
+              break;
+            case 2:
+              score_projects += 4
+              scoreDisplay_projects.innerHTML = score_projects
+              fillBar(score_projects, bar_projects, btn_projects);
+              break;
+            case 3:
+              score_cv += 4
+              scoreDisplay_cv.innerHTML = score_cv
+              fillBar(score_cv, bar_cv, btn_cv);
+              break;
+            case 4:
+              score_contact += 4
+              scoreDisplay_contact.innerHTML = score_contact
+              fillBar(score_contact, bar_contact, btn_contact);
+              break;
+            default:
+              break;
+          }
         }
         rowOfFour.forEach(index => {
         squares[index].style.backgroundImage = ''
@@ -194,36 +203,42 @@ function moveIntoSquareBelow() {
   checkRowForFour()
 
 //for column of Four
-  function checkColumnForFour() {
-    for (i = 0; i < 39; i ++) {
+  function checkColumnForFour(checking) {
+    for (i = 0; i < 40; i ++) {
       let columnOfFour = [i, i+width, i+width*2, i+width*3]
       let decidedColor = squares[i].style.backgroundImage
       const isBlank = squares[i].style.backgroundImage === ''
 
       if(columnOfFour.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
-        switch (parseInt(decidedColor[decidedColor.length-7])) {
-          case 1:
-            score_journey += 4
-            scoreDisplay_journey.innerHTML = score_journey
-            fillBar(score_journey, bar_journey, btn_journey);
-            break;
-          case 2:
-            score_projects += 4
-            scoreDisplay_projects.innerHTML = score_projects
-            fillBar(score_projects, bar_projects, btn_projects);
-            break;
-          case 3:
-            score_cv += 4
-            scoreDisplay_cv.innerHTML = score_cv
-            fillBar(score_cv, bar_cv, btn_cv);
-            break;
-          case 4:
-            score_contact += 4
-            scoreDisplay_contact.innerHTML = score_contact
-            fillBar(score_contact, bar_contact, btn_contact);
-            break;
-          default:
-            break;
+        if (checking) {
+          continue
+        }
+        if (!first_time)
+        {
+          switch (parseInt(decidedColor[decidedColor.length-7])) {
+            case 1:
+              score_journey += 4
+              scoreDisplay_journey.innerHTML = score_journey
+              fillBar(score_journey, bar_journey, btn_journey);
+              break;
+            case 2:
+              score_projects += 4
+              scoreDisplay_projects.innerHTML = score_projects
+              fillBar(score_projects, bar_projects, btn_projects);
+              break;
+            case 3:
+              score_cv += 4
+              scoreDisplay_cv.innerHTML = score_cv
+              fillBar(score_cv, bar_cv, btn_cv);
+              break;
+            case 4:
+              score_contact += 4
+              scoreDisplay_contact.innerHTML = score_contact
+              fillBar(score_contact, bar_contact, btn_contact);
+              break;
+            default:
+              break;
+          }
         }
         columnOfFour.forEach(index => {
         squares[index].style.backgroundImage = ''
@@ -234,8 +249,8 @@ function moveIntoSquareBelow() {
 checkColumnForFour()
 
   //for row of Three
-  function checkRowForThree() {
-    for (i = 0; i < 61; i ++) {
+  function checkRowForThree(checking) {
+    for (i = 0; i < 62; i ++) {
       let rowOfThree = [i, i+1, i+2]
       let decidedColor = squares[i].style.backgroundImage
       const isBlank = squares[i].style.backgroundImage === ''
@@ -244,29 +259,35 @@ checkColumnForFour()
       if (notValid.includes(i)) continue
 
       if(rowOfThree.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
-        switch (parseInt(decidedColor[decidedColor.length-7])) {
-          case 1:
-            score_journey += 3
-            scoreDisplay_journey.innerHTML = score_journey
-            fillBar(score_journey, bar_journey, btn_journey);
-            break;
-          case 2:
-            score_projects += 3
-            scoreDisplay_projects.innerHTML = score_projects
-            fillBar(score_projects, bar_projects, btn_projects);
-            break;
-          case 3:
-            score_cv += 3
-            scoreDisplay_cv.innerHTML = score_cv
-            fillBar(score_cv, bar_cv, btn_cv);
-            break;
-          case 4:
-            score_contact += 3
-            scoreDisplay_contact.innerHTML = score_contact
-            fillBar(score_contact, bar_contact, btn_contact);
-            break;
-          default:
-            break;
+        if (checking) {
+          continue
+        }
+        if (!first_time)
+        {
+          switch (parseInt(decidedColor[decidedColor.length-7])) {
+            case 1:
+              score_journey += 3
+              scoreDisplay_journey.innerHTML = score_journey
+              fillBar(score_journey, bar_journey, btn_journey);
+              break;
+            case 2:
+              score_projects += 3
+              scoreDisplay_projects.innerHTML = score_projects
+              fillBar(score_projects, bar_projects, btn_projects);
+              break;
+            case 3:
+              score_cv += 3
+              scoreDisplay_cv.innerHTML = score_cv
+              fillBar(score_cv, bar_cv, btn_cv);
+              break;
+            case 4:
+              score_contact += 3
+              scoreDisplay_contact.innerHTML = score_contact
+              fillBar(score_contact, bar_contact, btn_contact);
+              break;
+            default:
+              break;
+          }
         }
         rowOfThree.forEach(index => {
         squares[index].style.backgroundImage = ''
@@ -277,36 +298,42 @@ checkColumnForFour()
   checkRowForThree()
 
 //for column of Three
-  function checkColumnForThree() {
-    for (i = 0; i < 47; i ++) {
+  function checkColumnForThree(checking) {
+    for (i = 0; i < 48; i ++) {
       let columnOfThree = [i, i+width, i+width*2]
       let decidedColor = squares[i].style.backgroundImage
       const isBlank = squares[i].style.backgroundImage === ''
 
       if(columnOfThree.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
-        switch (parseInt(decidedColor[decidedColor.length-7])) {
-          case 1:
-            score_journey += 3
-            scoreDisplay_journey.innerHTML = score_journey
-            fillBar(score_journey, bar_journey, btn_journey);
-            break;
-          case 2:
-            score_projects += 3
-            scoreDisplay_projects.innerHTML = score_projects
-            fillBar(score_projects, bar_projects, btn_projects);
-            break;
-          case 3:
-            score_cv += 3
-            scoreDisplay_cv.innerHTML = score_cv
-            fillBar(score_cv, bar_cv, btn_cv);
-            break;
-          case 4:
-            score_contact += 3
-            scoreDisplay_contact.innerHTML = score_contact
-            fillBar(score_contact, bar_contact, btn_contact);
-            break;
-          default:
-            break;
+        if (checking) {
+          continue
+        }
+        if (!first_time)
+        {
+          switch (parseInt(decidedColor[decidedColor.length-7])) {
+            case 1:
+              score_journey += 3
+              scoreDisplay_journey.innerHTML = score_journey
+              fillBar(score_journey, bar_journey, btn_journey);
+              break;
+            case 2:
+              score_projects += 3
+              scoreDisplay_projects.innerHTML = score_projects
+              fillBar(score_projects, bar_projects, btn_projects);
+              break;
+            case 3:
+              score_cv += 3
+              scoreDisplay_cv.innerHTML = score_cv
+              fillBar(score_cv, bar_cv, btn_cv);
+              break;
+            case 4:
+              score_contact += 3
+              scoreDisplay_contact.innerHTML = score_contact
+              fillBar(score_contact, bar_contact, btn_contact);
+              break;
+            default:
+              break;
+          }
         }
         columnOfThree.forEach(index => {
         squares[index].style.backgroundImage = ''
@@ -316,12 +343,21 @@ checkColumnForFour()
   }
 checkColumnForThree()
 
+for (let index = 0; index < 16; index++) {
+  moveIntoSquareBelow()
+  checkRowForFour(false)
+  checkColumnForFour(false)
+  checkRowForThree(false)
+  checkColumnForThree(false)
+}
+first_time = false
+
 // Checks carried out indefintely - Add Button to clear interval for best practise, or clear on game over/game won. If you have this indefinite check you can get rid of calling the check functions above.
 window.setInterval(function(){
-    checkRowForFour()
-    checkColumnForFour()
-    checkRowForThree()
-    checkColumnForThree()
+    checkRowForFour(false)
+    checkColumnForFour(false)
+    checkRowForThree(false)
+    checkColumnForThree(false)
     moveIntoSquareBelow()
   }, 100)
 })
